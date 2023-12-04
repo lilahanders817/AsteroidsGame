@@ -1,30 +1,60 @@
-Star[] some = new Star[200];
-Spaceship ship = new Spaceship();
-public void setup(){
-  size(800,800);
-  for(int i = 0; i<some.length; i++){
-    some[i] = new Star();
+Spaceship bob = new Spaceship(); 
+Star[] stars = new Star[100];
+ArrayList <TieFighter> rock = new ArrayList <TieFighter> ();
+boolean w = false;
+boolean a = false;
+boolean d = false;
+boolean s = false;
+
+public void setup() {
+  size(700,700);
+  for(int i = 0; i < stars.length; i++)
+  stars[i] = new Star();
+  for (int i = 0; i < 15; i++) {
+    rock.add(new TieFighter());
   }
 }
-
-public void draw(){
+public void draw() {
   background(0);
-  for(int i = 0; i < some.length; i++){
-    some[i].show();
+  bob.show(); 
+  bob.move();
+  if (a == true)
+    bob.turn(-4);
+  if (d == true)
+    bob.turn(4);
+  if (w == true)
+    bob.accelerate(0.2);
+  if (s == true) {
+    bob.hyperspace();
+    s = false; }
+  for(int i = 0; i < stars.length; i++){
+    stars[i].show();
+}
+  
+  for(int i = 0; i < rock.size(); i++) {
+    rock.get(i).move();
+    rock.get(i).show();
   }
-  ship.show();
-  ship.move();
 }
 
-void keyPressed(){
-  // spaceship controls
-  if (keyCode == LEFT) {
-    ship.turn(-5);
-  } else if (keyCode == RIGHT) {
-    ship.turn(5);
-  } else if (keyCode == UP) {
-    ship.accelerate(0.1);
-  } else if (key == ' ') {
-    ship.hyperspace();
-  }
+public void keyPressed() { 
+  if (key == 'w')
+    w = true;
+  if (key == 'a')
+    a = true;
+  if (key == 'd')
+    d = true;
+  if (key == 's')
+    s = true;
+}
+
+public void keyReleased() {
+  if (key == 'w')
+    w = false;
+  if (key == 'a')
+    a = false;
+  if (key == 'd')
+    d = false;
+  if (key == 's')
+    s = false;
 }
