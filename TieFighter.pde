@@ -33,4 +33,12 @@ class TieFighter extends Floater
      super.move();
      super.turn(rotSpeed);
    }
+   
+    public double getmyCenterX(){
+      return myCenterX;
+    }
+    
+    public double getmyCenterY(){
+      return myCenterY;
+    }
 }
