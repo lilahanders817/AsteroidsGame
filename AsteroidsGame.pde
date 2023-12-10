@@ -12,6 +12,7 @@ public void setup() {
   stars[i] = new Star();
   for (int i = 0; i < 15; i++) {
     rock.add(new TieFighter());
+    
   }
 }
 public void draw() {
@@ -19,7 +20,7 @@ public void draw() {
   bob.show(); 
   bob.move();
   if (a == true)
-    bob.turn(-4);
+    bob.turn(-3);
   if (d == true)
     bob.turn(4);
   if (w == true)
@@ -29,11 +30,14 @@ public void draw() {
     s = false; }
   for(int i = 0; i < stars.length; i++){
     stars[i].show();
-}
-  
+  }
   for(int i = 0; i < rock.size(); i++) {
     rock.get(i).move();
     rock.get(i).show();
+    float num = dist((float)(bob.getX()), (float)(bob.getY()), (float)(rock.get(i).getmyCenterX()), (float)(rock.get(i).getmyCenterY()));
+    if (num < 20){
+      rock.remove(i);
+    }
   }
 }
 
