@@ -1,10 +1,12 @@
 Spaceship bob = new Spaceship(); 
 Star[] stars = new Star[100];
 ArrayList <TieFighter> rock = new ArrayList <TieFighter> ();
+ArrayList <Bullet> ammo = new ArrayList <Bullet>();
 boolean w = false;
 boolean a = false;
 boolean d = false;
 boolean s = false;
+//private boolean spacePressed = false;
 
 public void setup() {
   size(700,700);
@@ -39,7 +41,27 @@ public void draw() {
       rock.remove(i);
     }
   }
+  for(int i = 0; i < ammo.size(); i++)
+  {
+    ammo.get(i).show();
+    ammo.get(i).move();
+    if(ammo.size() > 15){ammo.remove(0);}
+  }
+  
+  for(int i = 0; i < ammo.size()-1; i++)
+  {
+    for(int j = 0; j < rock.size()-1; j++)
+    {
+      if(dist((float)rock.get(j).getmyCenterX(), (float)rock.get(j).myCenterY, (float)ammo.get(i).myCenterX, (float)ammo.get(i).myCenterY) < 5 )
+    {
+      ammo.remove(i);
+      rock.remove(j);
+    }
+   }
+  
 }
+}
+
 
 public void keyPressed() { 
   if (key == 'w')
@@ -50,6 +72,8 @@ public void keyPressed() {
     d = true;
   if (key == 's')
     s = true;
+   if (key == 'q') {ammo.add(new Bullet(bob));}
+
 }
 
 public void keyReleased() {
